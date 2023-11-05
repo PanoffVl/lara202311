@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 use App\Models\Post;
 
@@ -12,8 +12,7 @@ class Posts extends Controller
     {
       $posts = Post::all();
       return view('posts.index', [
-        'posts' => $posts,
-        'some' => 100
+        'posts' => $posts
       ]);
     }
 
@@ -27,10 +26,13 @@ class Posts extends Controller
 
     // }
 
-    // public function show(string $id)
-    // {
-
-    // }
+     public function show(string $id)
+     {
+         $post = Post::findOrFail($id);
+         return view('posts.show', [
+             'post' => $post
+         ]);
+     }
 
     // public function edit(string $id)
     // {

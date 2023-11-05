@@ -14,4 +14,6 @@ use App\Http\Controllers\Posts;
 |
 */
 
-Route::get('/', [ Posts:: class, 'index' ]);
+Route::get('/posts', [ Posts:: class, 'index' ]);
+Route::get('/post/{id}', [ Posts:: class, 'show' ]);
+//Route::get('/', [ Posts:: class, 'index' ]);
