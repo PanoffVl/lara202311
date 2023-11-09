@@ -22,7 +22,7 @@ class CarController extends Controller
   public function store(Request $request)
   {
     $validated = $request->validate([
-      'brand' => 'required|min:2|max:100',
+      'brand' => 'required|min:4|max:100',
       'model' => 'required|min:2|max:100',
       'price' => 'required|multiple_of:1000',
     ]);
@@ -37,20 +37,32 @@ class CarController extends Controller
     return view('cars.show', ['car'=>$car]);
   }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * public function update(Request $request, Car $car)
-   * {
-   * //
-   * }
-   *
-   * /**
-   * Remove the specified resource from storage.
-   *
-   * public function destroy(Car $car)
-   * {
-   * //
-   * }
-   */
+  public function edit(String $id)
+  {
+    $car = Car::findOrFail($id);
+    return view('cars.edit', ['car'=>$car]);
+  }
+
+  public function update(Request $request, $id)
+  {
+    $validated = $request->validate([
+      'brand' => 'required|min:4|max:100',
+      'model' => 'required|min:2|max:100',
+      'price' => 'required|multiple_of:1000',
+    ]);
+
+    $car = Car::find($id);
+    if($car->brand !== $validated['brand']) $car->brand = $validated['brand'];
+    if($car->model !== $validated['model']) $car->model = $validated['model'];
+    if($car->price !== $validated['price']) $car->price = $validated['price'];
+    $car->save();
+
+    return redirect("/cars/{$car->id}");
+  }
+
+  public function destroy(String $id)
+  {
+    Car::destroy($id);
+    return redirect("/cars/");
+  }
 }
