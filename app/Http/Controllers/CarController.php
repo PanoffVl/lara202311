@@ -11,7 +11,7 @@ class CarController extends Controller
   public function index()
   {
     $cars = Car::all();
-    return view('cars.index', ['cars' => $cars]);
+    return view('cars.index', compact('cars'));
   }
 
   public function create()
@@ -28,41 +28,39 @@ class CarController extends Controller
     ]);
 
     $car = Car::create($validated);
-    return redirect("/cars/{$car->id}");
+    return redirect()->route('cars.show', [$car->id]);
   }
 
   public function show(String $id)
   {
     $car = Car::findOrFail($id);
-    return view('cars.show', ['car'=>$car]);
+    return view('cars.show', compact('car'));
   }
 
   public function edit(String $id)
   {
     $car = Car::findOrFail($id);
-    return view('cars.edit', ['car'=>$car]);
+    return view('cars.edit', compact('car'));
   }
 
   public function update(Request $request, $id)
   {
+    $car = Car::findOrFail($id);
+
     $validated = $request->validate([
       'brand' => 'required|min:4|max:100',
       'model' => 'required|min:2|max:100',
       'price' => 'required|multiple_of:1000',
     ]);
 
-    $car = Car::find($id);
-    if($car->brand !== $validated['brand']) $car->brand = $validated['brand'];
-    if($car->model !== $validated['model']) $car->model = $validated['model'];
-    if($car->price !== $validated['price']) $car->price = $validated['price'];
-    $car->save();
-
-    return redirect("/cars/{$car->id}");
+    $car->update($validated);
+    return redirect()->route('cars.show', [$car->id]);
   }
 
   public function destroy(String $id)
   {
-    Car::destroy($id);
-    return redirect("/cars/");
+    $car = Car::findOrFail($id);
+    $car->delete();
+    return redirect()->route('cars.index');
   }
 }

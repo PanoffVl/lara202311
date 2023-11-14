@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Posts;
-use App\Http\Controllers\CarController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CarController as Cars;
+use App\Http\Controllers\HomeController as Home;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,16 +16,20 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', [ HomeController::class, 'index' ]);
-Route::get('/posts', [ Posts::class, 'index' ]);
-Route::get('/posts/create', [ Posts::class, 'create' ]);
-Route::get('/posts/{id}', [ Posts::class, 'show' ]);
-Route::post('/posts', [ Posts::class, 'store' ]);
-Route::get('/cars', [ CarController::class, 'index']);
-Route::get('/cars/create' , [ CarController::class,'create']);
-Route::get('/cars/edit/{id}' , [ CarController::class,'edit']);
-Route::post('/cars/update/{id}', [ CarController::class, 'update']);
-Route::get('/cars/delete/{id}' , [ CarController::class,'destroy']);
-Route::get('/cars/{id}', [ CarController::class, 'show']);
-Route::post('/cars', [ CarController::class, 'store']);
+Route::get('/', [ Home::class, 'index' ]) -> name('home.index');
+
+Route::get('/posts', [ Posts::class, 'index' ]) -> name('posts.index');
+Route::get('/posts/create', [ Posts::class, 'create' ]) -> name('posts.create');
+Route::get('/posts/{id}', [ Posts::class, 'show' ]) -> name('posts.show');
+Route::post('/posts', [ Posts::class, 'store' ]) -> name('posts.store');
+
+Route::get('/cars', [ Cars::class, 'index']) -> name('cars.index');
+Route::get('/cars/create' , [ Cars::class,'create']) -> name('cars.create');
+Route::post('/cars', [ Cars::class, 'store']) -> name('cars.store');
+Route::get('/cars/{id}', [ Cars::class, 'show']) -> name('cars.show');
+Route::get('/cars/{id}/edit' , [ Cars::class,'edit']) -> name('cars.edit');
+Route::put('/cars/{id}', [ Cars::class, 'update']) -> name('cars.update');
+Route::delete('/cars/{id}' , [ Cars::class,'destroy']) -> name('cars.destroy');
+
+
 

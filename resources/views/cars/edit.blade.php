@@ -1,24 +1,9 @@
-<h1>Create new car</h1>
-<form method="post" action="/cars/update/{{ $car->id }}">
+<h1>Edit car {{ $car->brand }} - {{ $car->model }}</h1>
+<form method="post" action="{{ route('cars.update', [$car->id]) }}">
+  @method('PUT')
   @csrf
-  @if(empty(old()))
-    <div>Brand: <input type="text" name="brand" value="{{ $car->brand }}"></div>
-    <div>Model: <input type="text" name="model" value="{{ $car->model }}"></div>
-    <div>Price: <input type="number" name="price" value="{{ $car->price }}"></div>
-  @else
-    <div>Brand: <input type="text" name="brand" value="{{ old('brand') }}"></div>
-    <div>Model: <input type="text" name="model" value="{{ old('model') }}"></div>
-    <div>Price: <input type="number" name="price" value="{{ old('price') }}"></div>
-  @endif
-
-  @if ($errors->any())
-    <div style="color: red">
-      <ul>
-        @foreach ($errors->all() as $error)
-          <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-  @endif
+  <x-input lable="Brand" type="text" name="brand" value="{{ $car->brand }}"/>
+  <x-input lable="Model" type="text" name="model" value="{{ $car->model }}"/>
+  <x-input lable="Price" type="number" name="price" value="{{ $car->price }}"/>
   <button>Send</button>
 </form>
