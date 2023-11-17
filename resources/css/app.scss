@@ -1,0 +1,33 @@
+@import 'bootstrap';
+
+body {
+  background: #fffeef;
+}
+
+/* Playball */
+@font-face {
+  font-family: 'Playball';
+  src: url('./fonts/Playball-Regular.ttf');
+}
+
+.logo-text {
+  font-family: 'Playball';
+  color: $orange-300;
+  font-size: 45px;
+}
+
+.run-color{
+  color: $orange-300 ! important;
+}
+
+.nav-active:hover, .nav-active:focus{
+  color: $orange-300;
+}
+
+.top-2 {
+  top: 20px
+}
+
+.right-2 {
+  right: 20px
+}

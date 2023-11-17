@@ -23,13 +23,16 @@ Route::get('/posts/create', [ Posts::class, 'create' ]) -> name('posts.create');
 Route::get('/posts/{id}', [ Posts::class, 'show' ]) -> name('posts.show');
 Route::post('/posts', [ Posts::class, 'store' ]) -> name('posts.store');
 
-Route::get('/cars', [ Cars::class, 'index']) -> name('cars.index');
-Route::get('/cars/create' , [ Cars::class,'create']) -> name('cars.create');
-Route::post('/cars', [ Cars::class, 'store']) -> name('cars.store');
-Route::get('/cars/{id}', [ Cars::class, 'show']) -> name('cars.show');
-Route::get('/cars/{id}/edit' , [ Cars::class,'edit']) -> name('cars.edit');
-Route::put('/cars/{id}', [ Cars::class, 'update']) -> name('cars.update');
-Route::delete('/cars/{id}' , [ Cars::class,'destroy']) -> name('cars.destroy');
+Route::resource('cars',Cars::class);
+
+//Route::get('/cars', [ Cars::class, 'index']) -> name('cars.index');
+//Route::get('/cars/create' , [ Cars::class,'create']) -> name('cars.create');
+//Route::post('/cars', [ Cars::class, 'store']) -> name('cars.store');
+//Route::get('/cars/{id}', [ Cars::class, 'show']) -> name('cars.show');
+//Route::get('/cars/{id}/edit' , [ Cars::class,'edit']) -> name('cars.edit');
+//Route::put('/cars/{id}', [ Cars::class, 'update']) -> name('cars.update');
+//Route::delete('/cars/{id}' , [ Cars::class,'destroy']) -> name('cars.destroy');
+
 
 
 

@@ -1,8 +1,8 @@
-<h1>Create new car</h1>
-<form method="post" action="{{ route('cars.store') }}">
-  @csrf
-  <x-input lable="Brand" type="text" name="brand"/>
-  <x-input lable="Model" type="text" name="model"/>
-  <x-input lable="Price" type="number" name="price"/>
-  <button>Send</button>
-</form>
+<x-layout.main title="Create new car" activeMenu="Cars">
+  <x-form action="{{ route('cars.store') }}">
+    @include('cars.form')
+    <div class="mb-2">
+    <button class="btn btn-success">Отправить</button>
+    </div>
+  </x-form>
+</x-layout.main>

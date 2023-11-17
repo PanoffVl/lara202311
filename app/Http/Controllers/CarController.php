@@ -2,65 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Cars\Save as SaveRequest;
 use App\Models\Car;
-use Illuminate\Http\Request;
-use PhpParser\Node\Scalar\String_;
 
 class CarController extends Controller
 {
   public function index()
   {
-    $cars = Car::all();
+    $cars = Car::orderByDesc('created_at')->get();
     return view('cars.index', compact('cars'));
   }
 
   public function create()
   {
-    return view('cars.create');
+    $transmission = config('carConfig.transmission');
+    return view('cars.create', compact('transmission'));
   }
 
-  public function store(Request $request)
+  public function store(SaveRequest $request)
   {
-    $validated = $request->validate([
-      'brand' => 'required|min:4|max:100',
-      'model' => 'required|min:2|max:100',
-      'price' => 'required|multiple_of:1000',
-    ]);
-
-    $car = Car::create($validated);
+    $car = Car::create($request->validated());
     return redirect()->route('cars.show', [$car->id]);
   }
 
-  public function show(String $id)
+  public function show(Car $car)
   {
-    $car = Car::findOrFail($id);
     return view('cars.show', compact('car'));
   }
 
-  public function edit(String $id)
+  public function edit(Car $car)
   {
-    $car = Car::findOrFail($id);
-    return view('cars.edit', compact('car'));
+    $transmission = config('carConfig.transmission');
+    return view('cars.edit', compact('car', 'transmission'));
   }
 
-  public function update(Request $request, $id)
+  public function update(SaveRequest $request, Car $car)
   {
-    $car = Car::findOrFail($id);
-
-    $validated = $request->validate([
-      'brand' => 'required|min:4|max:100',
-      'model' => 'required|min:2|max:100',
-      'price' => 'required|multiple_of:1000',
-    ]);
-
-    $car->update($validated);
+    $car->update($request->validated());
     return redirect()->route('cars.show', [$car->id]);
   }
 
-  public function destroy(String $id)
+  public function destroy(Car $car)
   {
-    $car = Car::findOrFail($id);
     $car->delete();
-    return redirect()->route('cars.index');
+    return redirect()->route('cars.index')->with('alerts', trans('alerts.cars.deleted'));
   }
 }

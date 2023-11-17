@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('cars', function (Blueprint $table) {
@@ -16,13 +13,11 @@ return new class extends Migration
             $table->string('brand', 256);
             $table->string('model', 256);
             $table->integer('price');
+            $table->tinyInteger('transmission');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('cars');
