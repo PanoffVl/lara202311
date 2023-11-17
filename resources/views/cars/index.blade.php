@@ -1,5 +1,4 @@
 <x-layout.main title="Cars" h1="Список авто">
-        <x-notifications />
         <a href="{{ route('cars.create') }}">Добавить новую машину</a>
         <hr>
         <ul>

@@ -22,7 +22,7 @@ class CarController extends Controller
   public function store(SaveRequest $request)
   {
     $car = Car::create($request->validated());
-    return redirect()->route('cars.show', [$car->id]);
+    return redirect()->route('cars.show', [$car->id])->with('alerts', trans('alerts.cars.created'));
   }
 
   public function show(Car $car)
@@ -39,7 +39,7 @@ class CarController extends Controller
   public function update(SaveRequest $request, Car $car)
   {
     $car->update($request->validated());
-    return redirect()->route('cars.show', [$car->id]);
+    return redirect()->route('cars.show', [$car->id])->with('alerts', trans('alerts.cars.edited'));
   }
 
   public function destroy(Car $car)
