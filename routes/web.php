@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Posts;
 use App\Http\Controllers\CarController as Cars;
+use App\Http\Controllers\BrandController as Brands;
 use App\Http\Controllers\HomeController as Home;
 
 /*
@@ -24,6 +25,7 @@ Route::get('/posts/{id}', [ Posts::class, 'show' ]) -> name('posts.show');
 Route::post('/posts', [ Posts::class, 'store' ]) -> name('posts.store');
 
 Route::resource('cars',Cars::class);
+Route::resource('brands',Brands::class);
 
 //Route::get('/cars', [ Cars::class, 'index']) -> name('cars.index');
 //Route::get('/cars/create' , [ Cars::class,'create']) -> name('cars.create');

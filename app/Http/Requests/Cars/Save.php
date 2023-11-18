@@ -24,7 +24,7 @@ class Save extends FormRequest
   public function rules(): array
   {
       return [
-        'brand' => 'required|min:4|max:100',
+        'brand' => 'required|min:2|max:100',
         'model' => 'required|min:2|max:100',
         'price' => 'required|multiple_of:1000',
         'transmission' => ['required', Rule::in(array_keys(config('carConfig.transmission')))],
